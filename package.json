@@ -1,0 +1,28 @@
+{
+  "name": "webpack-split-chunks-example",
+  "sideEffects": [
+    "*.css"
+  ],
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "exp1": "cd examples/example1 ; npx webpack --config webpack.config.js",
+    "exp1b": "npx webpack --config examples/example1/webpack.config.js",
+    "exp2": "npx webpack --config examples/example2/webpack.config.js",
+    "exp3": "npx webpack --config examples/example3/webpack.config.js",
+    "exp4": "npx webpack --config examples/example4/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "clean-webpack-plugin": "^2.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11"
+  }
+}
