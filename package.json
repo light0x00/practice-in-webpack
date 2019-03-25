@@ -11,7 +11,10 @@
     "exp1b": "npx webpack --config examples/example1/webpack.config.js",
     "exp2": "npx webpack --config examples/example2/webpack.config.js",
     "exp3": "npx webpack --config examples/example3/webpack.config.js",
-    "exp4": "npx webpack --config examples/example4/webpack.config.js"
+    "exp4": "npx webpack --config examples/example4/webpack.config.js",
+    "async1": "npx webpack --config examples/about-async-module1/webpack.config.js",
+    "async2": "npx webpack --config examples/about-async-module2/webpack.config.js",
+    "async3": "npx webpack --config examples/about-async-module3/webpack.config.js"
   },
   "keywords": [],
   "author": "",

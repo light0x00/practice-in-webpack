@@ -1,8 +1,5 @@
-
-
 setTimeout(
-    ()=>import ('../common/common'),2000
+    ()=>import (/* webpackChunkName: "common" */'../common/common'),2000
 )
 
-// import ('../common/common')
 

@@ -1,8 +1,7 @@
 const { join: _join, resolve: _resolve } = require('path');
-var fs = require('fs');
-// let CleanWebpackPlugin = require('clean-webpack-plugin')
-// let HtmlWebpackPlugin = require('html-webpack-plugin')
-// let MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const fs = require('fs');
+let CleanWebpackPlugin = require('clean-webpack-plugin')
+let HtmlWebpackPlugin = require('html-webpack-plugin')
 let webpack = require('webpack')
 
 let config = {
@@ -48,7 +47,10 @@ let config = {
         }
     },
     plugins: [
-        new webpack.ProgressPlugin(),
+        // new webpack.ProgressPlugin(),
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({ filename: `entry1.html`, chunks: ["entry1","default","vendors","lodash"] }),
+        new HtmlWebpackPlugin({ filename: `entry2.html`, chunks: ["entry2","default","vendors","lodash"] }),
     ]
 };
 

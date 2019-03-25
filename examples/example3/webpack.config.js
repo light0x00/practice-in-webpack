@@ -62,15 +62,8 @@ let config = {
     plugins: [
         new webpack.ProgressPlugin(),
         new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({ filename: `pageA.html`, chunks: ["entry1","default"] }),
-        new HtmlWebpackPlugin({ filename: `pageB.html`, chunks: ["entry2","default"] }),
-        // new MiniCssExtractPlugin({
-        //     // Options similar to the same options in webpackOptions.output
-        //     // both options are optional
-        //     filename: "[name].css",
-        //     chunkFilename: "[id].css"
-        // })
-
+        new HtmlWebpackPlugin({ filename: `pageA.html`, chunks: ["entry1","default","vendors"] }),
+        new HtmlWebpackPlugin({ filename: `pageB.html`, chunks: ["entry2","default","vendors"] }),
     ]
 };
 

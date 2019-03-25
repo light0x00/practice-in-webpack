@@ -2,7 +2,6 @@ const { join: _join, resolve: _resolve } = require('path');
 const fs = require('fs');
 let CleanWebpackPlugin = require('clean-webpack-plugin')
 let HtmlWebpackPlugin = require('html-webpack-plugin')
-// let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 let webpack = require('webpack')
 
 let config = {
@@ -10,7 +9,7 @@ let config = {
     mode: "development",
     entry: {
         entry1: _resolve(__dirname, "src/entry1/main.js"),
-        entry2: _resolve(__dirname, "./src/entry2/main.js"),
+        entry2: _resolve(__dirname, "src/entry2/main.js"),
     }
     ,
     output: {
@@ -23,6 +22,9 @@ let config = {
         ]
     },
     optimization: {
+        // splitChunks:{
+        //     maxAsyncRequests: 2
+        // }
         /* 只打算优化async模块时, 使用默认配置即可 */
         // splitChunks: {
         //     chunks: 'all',
