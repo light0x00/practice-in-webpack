@@ -74,9 +74,17 @@ splitChunks: {
 
 正如本文开头所展示的例子,我们同步导入了的共享模块`lodash`被分别打包到了两个chunk中. 这是因为默认配置只对异步模块做优化.
 
-### 3.4 处理异步模块
+如果要优化同步模块:
 
-**`splitingChunks.*`的配置项中除了`chunks`、`maxAsyncRequests` 外,都不对异步模块其作用**
+```js
+splitChunks:{
+    chunks:"all"
+}
+```
+
+### 3.4 对异步模块的处理
+
+**`splitingChunks.*`的配置项中除了`chunks`、`maxAsyncRequests` 外,都不对异步模块起作用**
 默认情况下,**webpack会直接把异步模块分割为一个独立chunk, 即使这个模块不被共享、size只有1bytes**
 
 这意味着异步导入多少个模块,就将打包出多少个chunk. 
@@ -115,10 +123,7 @@ splitChunks:{
 entry1.bundle.js    9.4 KiB  entry1  [emitted]  entry1
 ```
 
-看到这里,如果我们站在用户(开源库的使用者)的角度来看,可能会觉得webpack,但是如果站在webpack的角度看,根本没法
-
-
-当然,webpack的设计者也给出了让我们控制 **异步模块分割规则**的方案,在导入时显示的告诉webpack指定**将要导入的异步模块放入哪一个chunk**
+webpack的设计者也给出了让我们控制 **异步模块分割规则**的方案,在导入时显示的告诉webpack指定**将要导入的异步模块放入哪一个chunk**
 
 ```js
 import (/* webpackChunkName: "asyncA" */'../common/async1')
@@ -138,6 +143,22 @@ asyncB.bundle.js   2.42 KiB  asyncB  [emitted]  asyncB
 entry1.bundle.js   9.56 KiB  entry1  [emitted]  entry1
 ```
 
+### 动态导入
+
+- webpackChunkName
+- webpackMode
+  - lazy    延迟加载,默认值
+  - eager   始终将该模块与当前entry打包到同一个chunk里(这意味着,对于当前entry而言 webpackChunkName将无效).
+          这意味着,如果该模块还被其他entry动态导入,是无法重用的(该模块将同时存在于多个chunk)
+  - weak    如果该模块所在的chunk已经被引入了(被浏览器下载过)则重用,否则加载失败并抛出异常
+
+- webpackPrefetch
+    设置后浏览器会在空闲时下载这个module所在的chunk,算是一种削峰填谷机制吧
+    > 👉[了解浏览器prefetch机制][mdn_prefresh]
+- webpackPreloading
+    设置后这个异步module所在的chunk会在页面加载时与父chunk并行加载
+
+[mdn_prefresh]:https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Link_prefetching_FAQ
 
 ## 4. 实践
 
@@ -146,7 +167,7 @@ entry1.bundle.js   9.56 KiB  entry1  [emitted]  entry1
 这种情况处理相对简单,工程结构如下
 
 - common.js
-- entry1.js 
+- entry1.js
 - entry2.js
  
  👉[示例代码](https://github.com/light0x00/learn-webpack-chunk-spliting/tree/master/examples/example1)
@@ -185,3 +206,5 @@ entry1\entry2 都动态导入了common.js.
 [split-chunk-plugin](https://webpack.js.org/plugins/split-chunks-plugin/)
 
 [module-method](https://www.webpackjs.com/api/module-methods/)
+
+[dynamic-imports](https://webpack.js.org/guides/code-splitting/#dynamic-imports)

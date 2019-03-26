@@ -12,9 +12,10 @@
     "exp2": "npx webpack --config examples/example2/webpack.config.js",
     "exp3": "npx webpack --config examples/example3/webpack.config.js",
     "exp4": "npx webpack --config examples/example4/webpack.config.js",
-    "async1": "npx webpack --config examples/about-async-module1/webpack.config.js",
-    "async2": "npx webpack --config examples/about-async-module2/webpack.config.js",
-    "async3": "npx webpack --config examples/about-async-module3/webpack.config.js"
+    "async1": "npx webpack --config examples/async-module-example1/webpack.config.js",
+    "async2": "npx webpack --config examples/async-module-example2/webpack.config.js",
+    "async3": "npx webpack --config examples/async-module-example3/webpack.config.js",
+    "async3s": "npx webpack-dev-server --config examples/async-module-example3/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,8 @@
     "clean-webpack-plugin": "^2.0.1",
     "html-webpack-plugin": "^3.2.0",
     "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1"
   },
   "dependencies": {
     "lodash": "^4.17.11"
