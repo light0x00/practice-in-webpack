@@ -2,11 +2,9 @@ const { join: _join, resolve: _resolve } = require('path');
 var fs = require('fs');
 let CleanWebpackPlugin = require('clean-webpack-plugin')
 let HtmlWebpackPlugin = require('html-webpack-plugin')
-// let MiniCssExtractPlugin = require('mini-css-extract-plugin')
 let webpack = require('webpack')
 
 let config = {
-    // mode:"development",
     mode: "development",
     entry: {
         entry1: _resolve(__dirname, "src/entry1/main.js"),
@@ -24,18 +22,14 @@ let config = {
     },
     optimization: {
         splitChunks: {
-            // chunks: 'all',
-            /* 每当要产生一个新的chunk时执行,传入一个将要被分割的chunk对象,返回值将决定是否要分割
-                (从实际使用来看 这个钩子不对动态导入而产生的chunk生效)
-                动态导入的钩子
-            */
-            chunks: function(chunk){
-                // console.log("====================+>"+chunk.name,chunk)
+            chunks: 'all',
+            // chunks: function(chunk){
+            //     // console.log("====================+>"+chunk.name,chunk)
               
-                console.log("====================+>",chunk)
-                // return chunk.name!=='entry1'
-                return true
-            },
+            //     console.log("====================+>",chunk)
+            //     // return chunk.name!=='entry1'
+            //     return true
+            // },
             /* 将minSize改为0 */
             minSize: 1,
             maxSize: 0,

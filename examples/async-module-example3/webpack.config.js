@@ -12,7 +12,7 @@ let config = {
     },
     entry: {
         entry1: _resolve(__dirname, "src/entry1/main.js"),
-        entry2: _resolve(__dirname, "src/entry2/main.js"),
+        // entry2: _resolve(__dirname, "src/entry2/main.js"),
     }
     ,
     output: {

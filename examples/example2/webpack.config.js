@@ -10,7 +10,7 @@ let config = {
     mode: "development",
     entry: {
         entry1: _resolve(__dirname, "src/entry1/main.js"),
-        entry2: _resolve(__dirname, "./src/entry2/main.js"),
+        // entry2: _resolve(__dirname, "./src/entry2/main.js"),
     }
     ,
     output: {
@@ -23,6 +23,12 @@ let config = {
         ]
     },
     optimization: {
+        splitChunks:{
+            chunks:"initial",
+            maxAsyncRequests: 1,
+            maxSize:100,
+            minSize:0
+        }
         /* 只打算优化async模块时, 使用默认配置即可 */
         // splitChunks: {
         //     chunks: 'all',
