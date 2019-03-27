@@ -1,8 +1,10 @@
 
-# Chunk Spliting
+# Code Splitting
 
-- [Chunk Spliting](#chunk-spliting)
+- [Code Splitting](#code-splitting)
   - [0. 前置约定](#0-%E5%89%8D%E7%BD%AE%E7%BA%A6%E5%AE%9A)
+  - [what](#what)
+  - [why](#why)
   - [1 splitChunks的默认配置](#1-splitchunks%E7%9A%84%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE)
   - [2 配置优先级](#2-%E9%85%8D%E7%BD%AE%E4%BC%98%E5%85%88%E7%BA%A7)
   - [3. 同步模块的处理](#3-%E5%90%8C%E6%AD%A5%E6%A8%A1%E5%9D%97%E7%9A%84%E5%A4%84%E7%90%86)
@@ -16,7 +18,36 @@
 ## 0. 前置约定
 
 1. 动态导入的模块称为`异步模块`,普通导入的模块称为`同步模块`,这样称呼是从import返回的是否为Promise的角度来划分的
-2. `splitingChunks.*`表示 splitingChunks下的所有配置项
+2. `splitChunks.*`表示 splitChunks下的所有配置项
+
+## what
+
+默认读者已经知道
+
+## why
+
+一个简单的示例 实验一下为什么要 "code splitting"
+
+entry1
+
+```js
+import 'lodash'
+```
+
+- entry2
+
+```js
+import 'lodash'
+```
+
+打包结果
+
+```txt
+entry1.bundle.js    551 KiB  entry1  [emitted]  entry1
+entry2.bundle.js    551 KiB  entry2  [emitted]  entry2
+```
+
+可以看到两个chunk都是551 KiB, 显然lodash被分别打包到了这两个chunk中. 这意味者页面中会加载大量重复代码,造成不必要的带宽占用、也不利于浏览器缓存.
 
 ## 1 splitChunks的默认配置
 
@@ -71,7 +102,6 @@ splitChunks: {
 所以上面的命题的结果是: 会分出3个chunk,因为minSize的优先级最大
 
 除此以外,`cacheGroup`内的配置的优先级也会高于`optimization.splitChunks.*`
-
 
 ## 3. 同步模块的处理
 
@@ -144,6 +174,8 @@ splitChunks:{
 entry1.bundle.js    9.4 KiB  entry1  [emitted]  entry1
 ```
 
+可以看到每个异步模块都被打包为一个独立的chunk
+
 webpack的设计者也给出了让我们控制 **异步模块分割规则**的方案,在导入时显示的告诉webpack指定**将要导入的异步模块放入哪一个chunk**
 
 ```js
@@ -215,9 +247,9 @@ import(`../language/${lang}.json`)
 entry1.bundle.js   11.5 KiB  entry1  [emitted]  entry1
 ```
 
-上面的`0.bundle.js`、`1.bundle.js`分别对应`zh.json` `us.json`. 你会发现 `language`目录下的每一个文件都分别打包了一个chunk. 
+上面的`0.bundle.js`、`1.bundle.js`分别对应`zh.json` `us.json`. 你会发现 `language`目录下的每一个文件都分别打包了一个chunk.
 
-我们希望这它们都被打成一个chunk,你可能会尝试用`webpackChunkName`
+我们希望这它们合并为一个chunk,你可能会尝试用`webpackChunkName`
 
 ```js
 import(/* webpackChunkName:"lang" */`../language/${lang}.json`).then(

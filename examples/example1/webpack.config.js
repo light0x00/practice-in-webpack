@@ -23,7 +23,7 @@ let config = {
     },
     optimization: {
         splitChunks: {
-            chunks: 'all',
+            chunks: 'async',
             /* 将minSize改为0 */
             minSize: 0,
             maxSize: 0,

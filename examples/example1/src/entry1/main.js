@@ -1,1 +1,1 @@
-import '../common/common'
+import 'lodash'
