@@ -309,8 +309,7 @@ optimization: {
                 async       只优化异步导入的chunk
                 initial     只优化初始chunk (初始块是指 页面加载时就需要的js文件)
                 all         it means that chunks can be shared even between async and non-async chunks.
-                function    动态导入的钩子, 每当要产生一个新的chunk时执行,传入一个将要被分割的chunk对象,返回值将决定是否要分割
-                            (从实际使用来看 这个钩子不对动态导入而产生的chunk生效)   
+                function    每当要产生一个新的chunk时执行,传入一个将要被分割的chunk对象,返回bool类型将决定是否要分割
             */
             chunks: 'all',
             /* chunk名称连接符,举个例子
