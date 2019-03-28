@@ -304,7 +304,7 @@ entry1.bundle.js    11.8 KiB  entry1  [emitted]  entry1
 ```js
 optimization: {
         splitChunks: {
-            /* 
+            /*
                 将选择哪些块进行优化,有效值为 
                 async       只优化异步导入的chunk
                 initial     只优化初始chunk (初始块是指 页面加载时就需要的js文件)
@@ -313,6 +313,12 @@ optimization: {
                             (从实际使用来看 这个钩子不对动态导入而产生的chunk生效)   
             */
             chunks: 'all',
+            /* chunk名称连接符,举个例子
+                动态导入一个lodash,设置 webpackChunkName为"utils"
+                你可能会以为文件名就一定是 utils.xx.js, 实际上是"vendors~utils.xx.js
+                因为lodash符合另一个name为vendors的默认cacheGroup,即lodash是在/node_modules/里的
+                所以决定chunk最终名称的是 cacheGroupName+webpackChunkName
+            */
             automaticNameDelimiter: "~",
             /* 按需加载时并行请求的最大数量。 Maximum number of parallel requests when on-demand loading.*/
             maxAsyncRequests: 5,
@@ -361,6 +367,18 @@ optimization: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10,
+                    /* 值得注意的是
+                        将把名称改为
+                        假如有 entry1 需要lodash, entry2需要lodash、axios.
+                        1. 在没有指定name的情况下, 将生成:
+                            vendors~entry1~entry2.js  放lodash
+                            vendors~entry2.js   放axios
+                        从chunk的去冗余、重用的角度来看,这样是对的.  但是存在一个问题 打包的名称不预知,这意味着 结合HtmlPlugin的时候 我们需要手动添加这些动态生成的chunk.
+
+                        2. 如果指定了name属性,将生成:
+                            vendors.js   //lodash和axios
+                        这可能就意味着在entry1、entry2分别对应pageA、pageB两个html页面时, 用户访问pageA时会加载的vendors.js里包含了多余的模块(axios)
+                    */
                     name: "vendors"
                 },
                 default: {
@@ -369,7 +387,6 @@ optimization: {
                     reuseExistingChunk: true,
                     name: "default"
                 },
-
                 /* 自定义的分割策略, 以下只是示例 并不代表这样做能优化打包结果 */
                 vue: {
                     /* 
