@@ -23,7 +23,7 @@ let config = {
     },
     optimization: {
         splitChunks: {
-            chunks: 'async',
+            chunks: "all",
             /* 将minSize改为0 */
             minSize: 0,
             maxSize: 0,
@@ -35,7 +35,8 @@ let config = {
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
-                    priority: -10
+                    priority: -10,
+                    // name:"vendors"
                 },
                 /* 当前示例满足这个group的要求 */
                 default: {
@@ -47,7 +48,6 @@ let config = {
         }
     },
     plugins: [
-        // new webpack.ProgressPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({ filename: `entry1.html`, chunks: ["entry1","default","vendors","lodash"] }),
         new HtmlWebpackPlugin({ filename: `entry2.html`, chunks: ["entry2","default","vendors","lodash"] }),
