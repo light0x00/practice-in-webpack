@@ -12,6 +12,7 @@
     - [6.1 动态导入](#61-%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5)
       - [6.1.1 关于webpackMode的lazy-once](#611-%E5%85%B3%E4%BA%8Ewebpackmode%E7%9A%84lazy-once)
         - [正确的做法](#%E6%AD%A3%E7%A1%AE%E7%9A%84%E5%81%9A%E6%B3%95)
+      - [6.1.2 在Typescript中使用动态导入](#612-%E5%9C%A8typescript%E4%B8%AD%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E5%AF%BC%E5%85%A5)
   - [7. 相关文档](#7-%E7%9B%B8%E5%85%B3%E6%96%87%E6%A1%A3)
   - [8. 配置分析](#8-%E9%85%8D%E7%BD%AE%E5%88%86%E6%9E%90)
 
@@ -286,6 +287,10 @@ entry1.bundle.js    11.8 KiB  entry1  [emitted]  entry1
 ```
 
 可以看到,language目下的module终于合到一个chunk里了.
+
+#### 6.1.2 在Typescript中使用动态导入
+
+[源码示例](https://github.com/light0x00/learn-webpack-chunk-spliting/tree/master/examples/dynamic-import)
 
 ## 7. 相关文档
 
