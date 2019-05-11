@@ -1,2 +1,0 @@
-
-演示如何在typescript中使用esnext标准的动态导入

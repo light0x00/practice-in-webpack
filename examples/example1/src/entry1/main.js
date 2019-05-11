@@ -1,3 +1,0 @@
-import 'lodash'
-
-import 'axios'

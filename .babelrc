@@ -1,0 +1,45 @@
+{
+  "env": {
+    "development": {
+      "plugins": []
+    },
+    "production": {}
+  },
+  /* https://babeljs.io/docs/en/next/babel-preset-env.html */
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": [
+            "last 2 versions",
+            "safari >= 7",
+            "chrome>=52"
+          ],
+          "esmodules": true, // 直接输出es module(配置后browsers会失效,不需要考虑兼容旧浏览器时建议设置为true), When specifying this option, the browsers field will be ignored. You can use this approach in combination with <script type="module"></script> to conditionally serve smaller scripts to users 
+        },
+        "spec": false,
+        "modules":false,  
+        "loose":false, //松散模式  编译将不完全按照es标准 (比如es6的class转为function时 会直接把类成员写到function的原型上)
+        "useBuiltIns": false,
+        "debug": false, //是否输出编译日志
+        "include": [],
+        "exclude": [] 
+      }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import", //处理异步倒入模块
+    /* https://babeljs.io/docs/en/next/babel-plugin-transform-runtime */
+    [
+      "@babel/plugin-transform-runtime", //提供填充\转换辅助方法
+      {
+        "helpers": true, // 是否自动添加辅助方法
+        "corejs": false, // 你使用的babel-runtime版本   if use @babel-runtime,set false, if use @babel-runtime-corejs2,set 2
+        "regenerator": true, //是否启用generator填充
+        /* 是否使用es2015模块标准的helpers方法(转换辅助方法)   注: 使用esMmodule标准的helpers方法会让打包体积变小一点   */
+        "useESModules": true
+      }
+    ]
+  ]
+}
