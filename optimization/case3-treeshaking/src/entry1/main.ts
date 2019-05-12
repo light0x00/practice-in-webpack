@@ -24,3 +24,7 @@ new Vue({
     render: h => h(App),
     router
 })
+
+import * as _ from 'lodash-es'
+
+console.log(_.add(1,2))

@@ -1,4 +1,4 @@
-# 代码压缩
+# minify
 
 Webpack4中使用`TesterPlugin`对代码做压缩(包含变量名压缩、注释清除、console语句清除等、语法简化),默认在production环境会自动启用. 这个插件内部基于`tester-js`,fork自`uglifyEs`(uglifyEs已经不再维护)
 
@@ -107,6 +107,43 @@ optimization: {
     sideEffects: true, //production环境默认开启
 }
 ```
+
+### 4. 不应该 ProvidePlugin
+
+通常我们会使用ProvidePluginal让自己少写一行`import`, 但是这样的代价是tree-shaking会失败, 因为源码中没有使用`import`而无法被标记哪些模块是Dead Code. 
+
+```js
+//webpack.config.js
+new webpack.ProvidePlugin({
+            _: 'lodash-es'
+        })
+//xx.js
+console.log(_.add(1,2))
+```
+
+编译后:
+
+```js
+/* WEBPACK VAR INJECTION */
+(function(_) {
+    console.log(_.add(1, 2));
+    /* WEBPACK VAR INJECTION */
+}.call(this, __webpack_require__(/*! lodash-es */
+"./node_modules/lodash-es/lodash.js")))
+```
+
+> 从打包结果上看,
+
+## 一个常见的误解
+
+一个常见的误解是认为`import *`会导致无法tree-skaing,在webpack4上并不是这样. 如下例子可以证明webpack4还是相当「智能」的.
+
+```js
+import * as _ from `lodash-es`
+//编译后
+ var lodash_es__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash-es */"./node_modules/lodash-es/add.js");
+```
+
 
 ## 一个常见的坑
 

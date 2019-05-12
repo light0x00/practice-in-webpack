@@ -24,3 +24,5 @@ new Vue({
     render: h => h(App),
     router
 })
+
+console.log(_.add(1,2))

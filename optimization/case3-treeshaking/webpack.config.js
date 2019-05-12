@@ -143,10 +143,9 @@ let config = {
             openAnalyzer: false,
             generateStatsFile: true
         }),
-        // new webpack.DllReferencePlugin({
-        //     context: '.',
-        //     manifest: require("./build/bundle.manifest.json"),
-        // }),
+        // new webpack.ProvidePlugin({
+        //     _: 'lodash-es'
+        // })
     ]
 };
 

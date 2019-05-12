@@ -122,6 +122,9 @@ let config = {
             reportFilename: "analyzer-report.html",
             openAnalyzer: false,
         }),
+        new webpack.ProvidePlugin({
+            _: 'lodash-es'
+        })
     ]
 };
 
