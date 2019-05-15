@@ -1,18 +1,18 @@
 <template>
   <div>
-    <JsxComp1>Light</JsxComp1>
-    <hr>
-    <JsxComp2>Light
+  
+    <JsxNamedSlots>Light
       <p slot="header">我是标题</p>
       <p slot="content">我是正文</p>
-    </JsxComp2>
+    </JsxNamedSlots>
     <hr>
+    <JsxScopeSlots></JsxScopeSlots>
   </div>
 </template>
 <script>
-import JsxComp1 from "@/comps/JsxComp1";
-import JsxComp2 from "@/comps/JsxComp2";
+import JsxNamedSlots from "@/comps/jsx-named-slots/index.js";
+import JsxScopeSlots from "@/comps/jsx-scope-slots/index.js";
     export default {
-      components:{JsxComp1,JsxComp2}
+      components:{JsxNamedSlots,JsxScopeSlots}
     }
 </script>
